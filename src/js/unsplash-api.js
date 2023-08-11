@@ -3,18 +3,20 @@ export class UnsplashApi {
 
   #BASE_URL = 'https://api.unsplash.com';
 
-  constructor() {
+  constructor(perPage) {
     this.page = 1;
     this.query = null;
+    this.per_page = perPage;
   }
 
   fetchPhotosByQuery() {
     const searchParams = new URLSearchParams({
       query: this.query,
       page: this.page,
-      per_page: 12,
+      per_page: this.per_page,
       client_id: this.#API_KEY,
     });
+
     return fetch(`${this.#BASE_URL}/search/photos/?${searchParams}`).then(
       resp => {
         if (!resp.ok) {
